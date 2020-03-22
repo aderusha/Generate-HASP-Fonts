@@ -3,6 +3,12 @@
 
 Create the Nextion ZI version 5 fonts used by the HASP project
 
+## CheatSheet
+
+[Check out the HASP CheatSheet to browse and select icons](https://htmlpreview.github.io/?https://github.com/aderusha/Generate-HASP-Fonts/blob/master/cheatsheet.html) for use with the HASP project.  Click the "U" button next to your desired icon and the correct codepoint will be copied to your clipboard.  Paste the result in your HASP automation, MQTT command, or Nextion project to display the selected icon on your HASP device.
+
+## Credits
+
 All the real hard work done by https://github.com/fvanroie.  THANK YOU FVANROIE!
 
 ZiLib library included here sourced from:
