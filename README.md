@@ -9,16 +9,13 @@ Create the Nextion ZI version 5 fonts used by the HASP project
 
 ## Credits
 
-All the real hard work done by https://github.com/fvanroie.  THANK YOU FVANROIE!
+All the real hard work done by https://github.com/fvanroie.  **THANK YOU FVANROIE!**
 
-**ZiLib library** included in this project sourced from:
-https://github.com/fvanroie/nextion-font-editor
+**ZiLib library** included in this project: [Source](https://github.com/fvanroie/nextion-font-editor)
 
-**Noto Sans font** included in this project sourced from:
-https://github.com/googlefonts/noto-fonts/tree/master/hinted/NotoSans - [(License)](https://github.com/googlefonts/noto-fonts/blob/master/LICENSE)
+**Noto Sans font** included in this project: [Source](https://github.com/googlefonts/noto-fonts/tree/master/hinted/NotoSans)/[License](https://github.com/googlefonts/noto-fonts/blob/master/LICENSE)
 
-**MaterialDesign font** included here sourced from:
-https://github.com/Templarian/MaterialDesign-Font - [(License)](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
+**MaterialDesign font** included in this project: [Source](https://github.com/Templarian/MaterialDesign-Font)/[License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE)
 
 ---
 
