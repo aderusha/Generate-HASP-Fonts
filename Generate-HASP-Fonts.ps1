@@ -106,7 +106,7 @@ Function New-ZiFontV5 {
     [Parameter(Position = 1, Mandatory = $false, HelpMessage = "Icon font filename")][ValidateScript( { Test-Path $_ })][string]$iconFont,
     [Parameter(Position = 2, Mandatory = $false, HelpMessage = "Icon font start codepoint")][int]$iconFontFirstCP,
     [Parameter(Position = 3, Mandatory = $false, HelpMessage = "Icon font end codepoint")][int]$iconFontLastCP,
-    [Parameter(Position = 4, Mandatory = $false, HelpMessage = "Icon font codepoint offset to fit result below 0xFFFF")][int]$iconCPOffset,
+    [Parameter(Position = 4, Mandatory = $false, HelpMessage = "Icon font codepoint offset to fit result below 0xFFFF")][int]$iconCPOffset = 0,
     [Parameter(Position = 5, Mandatory = $false, HelpMessage = "Icon font vertical offset")][int]$iconVerticalOffset = 0,
     [Parameter(Position = 6, Mandatory = $false, HelpMessage = "Text font vertical offset")][int]$textVerticalOffset = 0,
     [Parameter(Position = 7, Mandatory = $true, HelpMessage = "Generated font size")][byte[]]$size,
