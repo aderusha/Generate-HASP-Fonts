@@ -111,7 +111,7 @@ Function New-ZiFontV5 {
     [Parameter(Position = 6, Mandatory = $false, HelpMessage = "Text font vertical offset")][int]$textVerticalOffset = 0,
     [Parameter(Position = 7, Mandatory = $true, HelpMessage = "Generated font size")][byte[]]$size,
     [Parameter(Position = 8, Mandatory = $false, HelpMessage = "Font codepage")]$Codepage = [ZiLib.CodePageIdentifier]::utf_8,
-    [Parameter(Position = 0, Mandatory = $true, HelpMessage = "Generated font output folder")][string]$Path
+    [Parameter(Position = 9, Mandatory = $true, HelpMessage = "Generated font output folder")][string]$Path
   )
 
   $iconSet = @()
@@ -127,7 +127,7 @@ Function New-ZiFontV5 {
     $newfontsize = $fontsize
 
     # Check if fontname is a otf/ttf file
-    if ((($file.Extension -eq ".ttf") -Or ($file.Extension -eq ".otf")) -and ($file.Exists)) {
+    if ((($file.Extension -eq ".ttf") -or ($file.Extension -eq ".otf")) -and ($file.Exists)) {
       $pfc = [System.Drawing.Text.PrivateFontCollection]::new()
       $pfc.AddFontFile($textFont)
       $font = [System.Drawing.Font]::new($pfc.Families[0], $newfontsize, "regular", [System.Drawing.GraphicsUnit]::pixel );
