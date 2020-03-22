@@ -35,12 +35,18 @@
 # NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.
+####################################################################################################
 
 Set-Location $PSScriptRoot
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 Add-Type -Path ./ZiLib.dll
 
 Function Main {
+  <#
+  .SYNOPSIS
+  Main Execute New-ZiFontV5() to generate each font required for the project.
+  #>
+
   $codePage = [ZiLib.CodePageIdentifier]::utf_8
 
   $outfile = "output" | Resolve-Path | ForEach-Object { $_.Path }
@@ -107,6 +113,18 @@ Function Main {
 }
 
 Function New-ZiFontV5 {
+  <#
+  .SYNOPSIS
+  New-ZiFontV5 Generate a new Nextion .ZI v5 font from local font files
+
+  .DESCRIPTION
+  Provided a text font, and optionally an icon font, generate a Nextion .ZI v5 font file.  Offers controls for remapping text and icon font
+  position and size, along with controls for remapping codepoints into Private Use space from 0xE000 to 0xF8FF.
+
+  .LINK
+  https://github.com/aderusha/Generate-HASP-Fonts
+  #>
+
   [CmdletBinding()]
   param (
     [Parameter(Position = 0, Mandatory = $true, HelpMessage = "Text font filename")][ValidateScript( { Test-Path $_ })][string]$textFont,
@@ -117,7 +135,7 @@ Function New-ZiFontV5 {
     [Parameter(Position = 5, Mandatory = $false, HelpMessage = "Text font vertical offset")][int]$textVerticalOffset = 0,
     [Parameter(Position = 6, Mandatory = $false, HelpMessage = "Icon font vertical offset")][int]$iconVerticalOffset = 0,
     [Parameter(Position = 7, Mandatory = $true, HelpMessage = "Text font size")][int]$textFontSize,
-    [Parameter(Position = 8, Mandatory = $true, HelpMessage = "Icon font size offset from text size")][int]$iconFontSizeOffset,
+    [Parameter(Position = 8, Mandatory = $false, HelpMessage = "Icon font size offset from text size")][int]$iconFontSizeOffset=0,
     [Parameter(Position = 9, Mandatory = $false, HelpMessage = "Font codepage")]$Codepage = [ZiLib.CodePageIdentifier]::utf_8,
     [Parameter(Position = 10, Mandatory = $true, HelpMessage = "Generated font output folder")][string]$Path
   )
@@ -131,9 +149,8 @@ Function New-ZiFontV5 {
 
   $file = Get-ChildItem $textFont
 
-
-  # Check if fontname is a otf/ttf file
   if ((($file.Extension -eq ".ttf") -or ($file.Extension -eq ".otf")) -and ($file.Exists)) {
+    # Check if fontname is a otf/ttf file
     $pfc = [System.Drawing.Text.PrivateFontCollection]::new()
     $pfc.AddFontFile($textFont)
     $font = [System.Drawing.Font]::new($pfc.Families[0], $textFontSize, "regular", [System.Drawing.GraphicsUnit]::pixel );
@@ -154,14 +171,11 @@ Function New-ZiFontV5 {
     $font = [System.Drawing.Font]::new($font.fontfamily, $newfontsize, "regular", [System.Drawing.GraphicsUnit]::pixel );
   }
 
-  Write-Host "Final text size: $newfontsize"
-
   $f = [ZiLib.FileVersion.V5.ZiFontV5]::new()
   $f.CharacterHeight = $textFontSize
   $f.CodePage = $codepage
   $f.Version = 5
 
-  # Letters
   foreach ($ch in 32..255) {
     # normal text
     $bytes = [bitconverter]::GetBytes([uint16]$ch)
@@ -201,7 +215,6 @@ Function New-ZiFontV5 {
   $outfile = Join-Path -Path $path -ChildPath ("{0} {1} ({2}).zi" -f $filename, $textFontSize, $Codepage)
   Write-Host "Writing $outfile"
   $f.Save($outfile)
-
 }
 
 Main
